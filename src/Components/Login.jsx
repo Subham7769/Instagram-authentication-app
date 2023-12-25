@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import axios from 'axios'
+import UserContext from "../Context/UserContext";
 
 
-const Login = ({setToken,setMessage}) => {
+const Login = () => {
+  const {setToken,setMessage} = useContext(UserContext);
+
 const [userInput, setUserInput] = useState({email:"", password:""});
 
 let {email, password} = userInput
@@ -27,7 +30,7 @@ const implementSubmit = async (e) =>{
       {email, password} );
       
       console.log(response.data.data.token)
-      // add to local storage
+      localStorage.setItem("token",JSON.stringify(response.data.data.token))// add to local storage
       setToken(response.data.data.token)//setting the token 
       
       setUserInput({email:"", password:""})

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import axios from "axios";
+import UserContext from "../Context/UserContext";
 
-const Signup = ({ setToken, setMessage }) => {
+const Signup = () => {
+  const {token,setToken,message, setMessage} = useContext(UserContext);
   const [userInput, setUserInput] = useState({
     name: "",
     email: "",
@@ -38,7 +40,7 @@ const Signup = ({ setToken, setMessage }) => {
         );
 
         console.log(response.data.data.token);
-        // add to local storage
+        localStorage.setItem("token",JSON.stringify(response.data.data.token))// add to local storage
         setToken(response.data.data.token); //setting the token
 
         setUserInput({
